@@ -1,71 +1,186 @@
-📌 Overview
+## RoboRide – Raspberry Pi Smart Robotic Car
+<img width="622" height="629" alt="Screenshot 2025-11-11 215249" src="https://github.com/user-attachments/assets/ddfb69f8-77f3-489a-8726-6c8522013ab9" />
 
-This project demonstrates the generation of a PWM (Pulse Width Modulation) signal on the Raspberry Pi and verifies the output using an oscilloscope.
-It also documents the setup journey, Linux experiments, and early debugging logs.
+## Project Overview
+RoboRide is a Raspberry Pi–based two-wheel robotic car designed to demonstrate real-time software control of hardware using GPIO and PWM signals. The robot supports directional movement, speed control, ultrasonic-based safety stopping in reverse, and camera-based photo/video capture — all controlled through a terminal-based user interface.
 
-🎯 Objectives
+This project was developed as a Phase 1 & Phase 2 academic engineering project to apply embedded systems, motor control, and real-time programming concepts.
 
-Generate PWM signals on Raspberry Pi
+## Features
 
-Verify signals using an oscilloscope
+- Forward, backward, left, and right movement
 
-Control LED brightness via duty cycle variation
+- Two selectable speed modes (Slow & Fast)
 
-Learn Linux setup, commands, and Raspberry Pi basics
+- Automatic reverse stop using ultrasonic sensor
 
-🖥️ Project Setup
-Requirements
+- Photo capture using Raspberry Pi Camera Module
 
-Raspberry Pi Zero W v1.1 (or similar board)
+- Video recording with start/stop control
 
-Breadboard + LED + Resistors
+- Terminal-based real-time control (Ncurses UI)
 
-Oscilloscope
+- Safe motor direction switching
 
-Wires and GPIO connections
+- Dual power supply architecture
+  
+![WhatsApp Image 2025-12-04 at 01 40 49_76183bda](https://github.com/user-attachments/assets/219912e5-8fd9-4a3a-98dd-174ab593aebf)
 
-Ubuntu/WSL2 for development
+## System Overview
 
-Installation
-git clone https://github.com/Bilal2866/ENGG-PROJECT-3.git
-cd ENGG-PROJECT-3
+Controller: Raspberry Pi (Zero W / 4 Model B)
 
-⚡ PWM Testing
-Results
+Motor Driver: L293D Dual H-Bridge IC
 
-📸 Oscilloscope at 75%
+Motors: 2 × DC Gear Motors
+
+Sensor: HC-SR04 Ultrasonic Sensor (Rear Mounted)
+
+Camera: Raspberry Pi Camera Module 2
+
+User Interface: Linux Terminal (Ncurses)
+
+Programming Language: C
+
+Libraries Used: WiringPi, softPwm, ncurses
+
+## 🎮 Control Keys (WASD Standard)
+Key	Function
+W	Move Forward
+S	Move Backward
+A	Turn Left
+D	Turn Right
+SPACE	Stop
+1	Slow Speed
+2	Fast Speed
+C	Capture Photo
+V	Start Video Recording
+B	Stop Video Recording
+Q	Quit Program
+
+⚠️ Automatic Safety:
+If the robot is reversing and an obstacle is detected within 50 cm, the robot will stop automatically.
+
+## 🔌 Hardware Connections
+Motor Driver (L293D)
+
+IN1 → GPIO 17
+
+IN2 → GPIO 18
+
+ENA → GPIO 27
+
+IN3 → GPIO 22
+
+IN4 → GPIO 23
+
+ENB → GPIO 24
+
+Ultrasonic Sensor
+
+TRIG → GPIO 5
+
+ECHO → GPIO 12 (with voltage divider)
+
+Camera
+
+Connected to the CSI Camera Port
+
+## 🛠️ Software Installation
+1️⃣ Update System
+sudo apt update && sudo apt upgrade
+
+2️⃣ Install Required Libraries
+sudo apt install wiringpi libncurses5-dev
+
+3️⃣ Enable Camera
+sudo raspi-config
 
 
-📸 Oscilloscope at 90%
+Enable Camera Interface, then reboot.
+
+⚙️ Compile and Run
+Compile:
+gcc robo.c -o robo -lwiringPi -lncurses
+
+Run:
+sudo ./robo
+
+## 📁 Media Storage
+
+📸 Photos saved to:
+
+~/Pictures/
 
 
-💡 LED brightness was proportional to duty cycle.
+🎥 Videos saved to:
 
-📓 Week 1 Journal Highlights
+~/Videos/
 
-Learned basic Linux commands (nano, file handling, networking)
 
-Installed WSL2 & Ubuntu, experimented with Kali Linux
+All media files are automatically timestamped.
 
-Set up a GitHub repo and started logging progress
+## 📌 Project Phases
+✅ Phase 1
 
-Faced troubleshooting challenges (SD card not detected, Wi-Fi errors)
+Chassis setup
 
-Shared debugging with the team for resolution
+Manual motor control
 
-📊 Conclusion
+L293D motor driver integration
 
-✅ Successfully generated PWM signals
-✅ Verified with oscilloscope
-✅ Controlled LED brightness via duty cycle
-✅ Gained experience with Linux, Raspberry Pi setup, and debugging
+Terminal-based control logic
 
-📺 Demo
+✅ Phase 2
 
-🎥 PWM Testing Video included in the above files
+Ultrasonic safety stopping
 
-👨‍💻 Authors
+Camera integration
 
-Bilal Hussain
+Video recording support
 
-Nikunj Patel
+Enhanced UI
+
+Improved power management
+
+## ⚠️ Limitations
+
+Light-load motors only
+
+Manual control only (no wireless yet)
+
+Battery runtime is limited
+
+Not suitable for rough terrain
+
+## 🔮 Future Enhancements
+
+✅ Wireless control via Wi-Fi or Bluetooth
+
+✅ Autonomous obstacle avoidance
+
+✅ Mobile app integration
+
+✅ AI-based object detection
+
+✅ Li-ion battery system with regulator
+
+## 👨‍💻 Developed By
+
+Bilal Hussain Mohammed
+
+Engineering Student – Electronics System Engineering
+
+GitHub: Bilal2866
+
+## ⭐ How to Support
+
+If you found this project useful:
+
+✅ Star the repository
+
+✅ Fork it
+
+✅ Build your own version
+
+✅ Improve it
